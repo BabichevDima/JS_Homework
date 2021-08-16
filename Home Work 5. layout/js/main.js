@@ -10,3 +10,17 @@ burger.addEventListener('click', () => {
   nav.classList.add('active');
   burger.classList.add('active');
 });
+
+window.addEventListener('resize', getWidth);
+
+function getWidth() {
+  if (window.innerWidth < 720) {
+    nav.classList.remove('container');
+    return;
+  } else if (window.innerWidth > 720) {
+    if (nav.classList.contains('container')) {
+      return;
+    }
+    nav.classList.add('container');
+  }
+}
