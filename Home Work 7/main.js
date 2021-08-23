@@ -2,9 +2,8 @@
 // Переписать предыдущий пример с кошками на прототипный стиль ООП.
 
 function Animal(name) {
-  this._foodAmount = 0;
-  this._name = name;
-  this._foodAmount = null;
+  this._foodAmount = 50;
+  this.name = name;
 }
 
 Animal.prototype._formatFoodAmount = function () {
