@@ -1,0 +1,32 @@
+.red {
+  color: red;
+  font-weight: bold;
+}
+.border {
+  table-layout: fixed;
+  width: 60%;
+  border-collapse: collapse;
+  text-align: center;
+  margin: auto;
+}
+.table_row {
+  height: 40px;
+}
+.table_cell {
+  overflow: hidden;
+}
+.table_cell:hover {
+  cursor: text;
+}
+.table_input {
+  width: 90%;
+}
+.table__btn {
+  transition: all 0.4s ease 0s;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.table__btn:hover {
+  cursor: pointer;
+  font-weight: bold;
+  background-color: rgba(0, 0, 0, 0.2);
+}
