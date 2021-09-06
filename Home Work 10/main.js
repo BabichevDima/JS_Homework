@@ -13,17 +13,17 @@ container.appendChild(firstPar);
 container.appendChild(lastPar);
 
 button[0].addEventListener('click', function () {
-  var links = firstPar.getElementsByTagName('a');
+  var links = firstPar.children;
 
-  for (var link of links) {
-    link.classList.toggle('red');
+  for (var i = 0; i < links.length; i++) {
+    links[i].classList.toggle('red');
   }
 });
 
 lastPar.onclick = function (event) {
   event.preventDefault();
   var target = event.target;
-  if (target !== lastPar) {
+  if (target.tagName === 'A') {
     // alert(target.href);
     alert(target.getAttribute('href'));
   }
