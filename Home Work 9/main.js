@@ -19,7 +19,7 @@ var arr = ['00', '13', '24'];
 
 function getString(arr) {
   return arr.reduce(function (string, item) {
-    return (string += ' : ' + item);
+    return (string + ' : ' + item);
   }, 'Текущее время');
 }
 
