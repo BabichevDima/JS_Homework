@@ -1,0 +1,44 @@
+.red {
+  color: red;
+  font-weight: bold;
+}
+
+.task2 {
+  margin-top: 50px;
+}
+input {
+  height: 20px;
+  width: 200px;
+  margin-bottom: 10px;
+}
+.board {
+  margin: auto;
+  border-radius: 10px;
+  box-sizing: border-box;
+  overflow: hidden;
+  display: inline-block;
+}
+.board:hover {
+  cursor: pointer;
+}
+.board__row {
+  display: flex;
+}
+.board__cell {
+  height: 50px;
+  width: 50px;
+}
+.white {
+  background: rgb(185, 185, 185);
+}
+.black {
+  background: #000;
+}
+.btn__create {
+  margin-bottom: 10px;
+}
+.active:hover {
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+  transition: 1s;
+}
