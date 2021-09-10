@@ -56,6 +56,7 @@ var board = document.querySelector('.board');
 function disableButton(x, y) {
   if (x.value.trim() === '' || y.value.trim() === '') {
     createBoard.disabled = true;
+    createBoard.classList.remove('active');
   } else {
     createBoard.disabled = false;
     createBoard.classList.add('active');
@@ -63,25 +64,37 @@ function disableButton(x, y) {
 }
 
 x.addEventListener('keyup', function () {
-  checkInput(x);
   disableButton(x, y);
 });
 
 y.addEventListener('keyup', function () {
-  checkInput(y);
   disableButton(x, y);
 });
 
-function checkInput(a) {
-  if (+a.value > 0 && +a.value <= 10 && !(+a.value % 1)) {
-  } else {
-    alert('Некорректно ввели число "' + a.id + '". Введите число от 1 до 10.');
-    a.value = '';
+function checkInput() {
+  var inputs = document.getElementsByTagName('input');
+  var flag = true;
+  for (var i = 0; i < inputs.length; i++) {
+    if (
+      +inputs[i].value > 0 &&
+      +inputs[i].value <= 10 &&
+      !(+inputs[i].value % 1)
+    ) {
+    } else {
+      alert(
+        'Некорректно ввели число "' +
+          inputs[i].id +
+          '". Введите число от 1 до 10.'
+      );
+      inputs[i].value = '';
+      flag = false;
+    }
   }
+  return flag;
 }
 
 function drawBoard(x, y) {
-  flag = true;
+  var flag = true;
   for (var i = 0; i < y; i++) {
     var row = document.createElement('div');
     row.className = 'board__row';
@@ -106,13 +119,15 @@ function clearInput(x, y) {
   x.value = '';
   y.value = '';
   disableButton(x, y);
-  createBoard.classList.remove('active');
 }
 
 createBoard.addEventListener('click', function () {
   board.innerHTML = '';
-  drawBoard(x.value, y.value);
-  clearInput(x, y);
+  if (checkInput()) {
+    drawBoard(x.value, y.value);
+    clearInput(x, y);
+  }
+  disableButton(x, y);
 });
 
 board.addEventListener('click', function () {
