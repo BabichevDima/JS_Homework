@@ -1,18 +1,61 @@
+// Практическое задание:
+// Создать GET-запрос по адресу https://reqres.in/api/users?page=2. Проверить, получаются ли данные с сервера.
+// Описать свой блок try/catch в обработчике успешного запроса. В try попытаться распарсить JSON-ответ с сервера.
+// Если исключения не возникает - породить его самостоятельно (попробовать 2 способа порождения).
+// Если возникает исключение (строка некорректная) - в блоке catch вывести в консоль информацию об ошибке.
+// Протестировать оба варианта. Убедиться, что код после блока try/catch продолжает выполняться.
+
+var practice = document.getElementById('btn__practice');
+
+function sendRequestPractice() {
+  var xhr = new XMLHttpRequest();
+
+  xhr.open('GET', 'https://reqres.in/api/users?page=2');
+
+  xhr.send();
+
+  xhr.onload = function () {
+    try {
+      var data = JSON.parse(this.response).data;
+      // throw { name: 'SyntaxError', message: 'Проброшенная ошибка!' };
+      throw new SyntaxError('Проброшенная ошибка!');
+      console.log(data);
+    } catch (e) {
+      if (e.name === 'SyntaxError') {
+        console.log(e.name + ': ' + e.message);
+      } else {
+        throw e;
+      }
+    } finally {
+      console.log('Блок finally выполняется в любом случае.');
+    }
+  };
+  xhr.onerror = function () {
+    console.log('неверный домен');
+  };
+}
+
+practice.addEventListener('click', function () {
+  sendRequestPractice();
+  setTimeout(function () {
+    console.log('Код работает дальше');
+  }, 2000);
+});
+
 // Задание 1:
 
 var btn = document.getElementById('btn');
 var block = document.getElementById('block');
 var head = document.createElement('div');
 
-function sendRequest() {
+function sendRequest(target) {
   var xhr = new XMLHttpRequest();
 
-  xhr.open('GET', '8https://reqres.in/api/users?page=1');
+  xhr.open('GET', 'https://reqres.in/api/users?page=1');
 
   xhr.send();
 
   xhr.onload = function () {
-    console.log(JSON.parse(this.response).data);
     if (Math.round(this.status / 100) === 2) {
       localStorage.setItem(
         'users',
@@ -35,15 +78,19 @@ function sendRequest() {
   };
 
   xhr.onloadend = function () {
-    console.log('Запрос завершен.');
+    target.innerHTML = 'Пользователи получены';
   };
 }
 
-btn.addEventListener('click', function () {
+btn.addEventListener('click', function (event) {
   if (localStorage.getItem('users') === null) {
-    sendRequest();
+    event.target.innerHTML = 'Loading...';
+    setTimeout(function () {
+      sendRequest(event.target);
+    }, 2000);
   } else {
     drawMarkup(JSON.parse(localStorage.getItem('users')));
+    event.target.innerHTML = 'Пользователи получены';
   }
   btn.disabled = true;
 });
