@@ -1,7 +1,7 @@
 // Задание 1:
 
 var regExp =
-  /^[a-z]{3,10}_[a-z]{3,10}(-[\d]{4})?@[a-z\d]{1,10}(\.|-)?[a-z\d]{1,10}\.com$/;
+  /^[a-z]{3,10}_[a-z]{3,10}(-\d{4})?@[a-z\d]{1,10}(\.|-)?[a-z\d]{1,10}\.com$/;
 
 console.log(regExp.test('name_surname-1234@gmail.com'));
 
@@ -10,8 +10,7 @@ console.log(regExp.test('name_surname-1234@gmail.com'));
 var number = '+375-25-777-77-77';
 
 function testNumber(number) {
-  var regExp =
-    /^(\+?375-?(44|29|33|17|25)|8-?(044|029|033|017|025))-?[1-9](\d){2}(-?(\d){2}){2}$/;
+  var regExp =/^(\+?375-?|8-?0)(44|29|33|17|25)-?[1-9](\d){2}(-?(\d){2}){2}$/;
   return regExp.test(number);
 }
 
@@ -37,11 +36,13 @@ console.log(findVowels(text));
 var text = 'НАПИСАТЬ функцию';
 
 function findVowels(text) {
-  return (
-    'В тексте ' +
-    Array.from(text.matchAll(/[уеыаоэяию]/gi)).length +
-    ' гласных.'
-  );
+  var regexp = /[уеыаоэяию]/gi;
+  var count = 0;
+
+  while (regexp.exec(text)) {
+    count++;
+  }
+  return 'В переданном тексте "' + text + '" - ' + count + ' гласных.';
 }
 
 console.log(findVowels(text));
